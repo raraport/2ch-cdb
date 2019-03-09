@@ -28,7 +28,9 @@ module.exports.get = form => {
             let props = []
             td.each((i, tdElem) => {
               if (i >= 1 && i <= 4) {
-                const text = $(tdElem).text().replace(/^\s+/, '').replace(/\s+$/, '')
+                const text = $(tdElem).text()
+                  .replace(/^\s+/, '')
+                  .replace(/\s+$/, '')
                 props.push(text !== '' && text !== '？' ? text : null)
               } else if (i === 0 || (i >= 6 && i <= 10)) {
                 const link = $(tdElem).find('a')
