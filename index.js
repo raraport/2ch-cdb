@@ -17,6 +17,7 @@ module.exports.get = form => {
 
     const onload = (error, response, body) => {
       if (!error && response.statusCode === 200) {
+        // const receivedTime = Date.now()
         const bodysjis = iconv.decode(body, 'Shift_JIS')
         const $ = cheerio.load(bodysjis)
         const tbodyElem = $('.search tbody')
@@ -65,6 +66,8 @@ module.exports.get = form => {
             result.push(item)
           }
         })
+        // const timeSpan = Date.now() - receivedTime
+        // console.log(`timespan: ${timeSpan / 1000}s`)
         resolve(result)
       } else { reject(error) }
     }
