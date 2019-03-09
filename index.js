@@ -82,7 +82,7 @@ module.exports.get = form => {
           }
         })
         resolve(result)
-      }
+      } else { reject(error) }
     }
     request({ url: url, encoding: null }, onload)
   })
