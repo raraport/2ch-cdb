@@ -11,6 +11,7 @@ const APIURL = 'http://2chcrew.geo.jp/?'
 
 module.exports.get = form => {
   return new Promise((resolve, reject) => {
+    let result = []
     const queryObject = querystring.stringify(form)
     const url = APIURL + queryObject
 
@@ -20,8 +21,7 @@ module.exports.get = form => {
         const $ = cheerio.load(bodysjis)
         const tbody = $('.search tbody')
         const tr = tbody.find('tr')
-
-        let result = []
+        
         tr.each((i, trElem) => {
           const td = $(trElem).find('td')
           if (i % 2) {
@@ -43,32 +43,33 @@ module.exports.get = form => {
                 props.push(span.text())
               }
             })
+
             result.push({
               view: props[1] ? {
                 url: props[0],
                 type: props[1]
-              }:null,
+              }: null,
               artist: props[2],
               title: props[3],
               time: props[4],
               bpm: props[5] ? Number(props[5]) : null,
-              update: props[6] ?{
+              update: props[6] ? {
                 url: props[6],
                 type: props[7]
-              }:null,
-              dl: props[8] ?{
+              }: null,
+              dl: props[8] ? {
                 url: props[8],
                 type: props[9],
                 count: props[10] ? Number(props[10]) : null,
-              }:null,
-              lyric: props[11] ?{
+              }: null,
+              lyric: props[11] ? {
                 url: props[11],
                 type: props[12]
-              }:null,
+              }: null,
               acappella: props[13] ? {
                 url: props[13],
                 type: props[14]
-              }:null,
+              }: null,
               external: props[15] ? {
                 url: props[15],
                 type: props[16]
