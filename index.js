@@ -9,7 +9,7 @@ const cheerio = require('cheerio')
 
 const APIURL = 'http://2chcrew.geo.jp/?'
 
-const get = form => {
+module.exports.get = form => {
   return new Promise((resolve, reject) => {
     const queryObject = querystring.stringify(form)
     const url = APIURL + queryObject
@@ -87,4 +87,3 @@ const get = form => {
   })
 }
 
-module.exports.get = get
