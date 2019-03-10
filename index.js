@@ -23,26 +23,27 @@ module.exports.get = form => {
         const tbodyElem = $('.search tbody')
         const trElems = tbodyElem.find('tr')
         
-        trElems.each((lineNum, trElem) => {
-          const td = $(trElem).find('td')
+        trElems.each((lineNum, tr) => {
+          const td = $(tr).find('td')
           if (lineNum % 2) {
             let props = []
-            td.each((i, tdElem) => {
+            td.each((i, td) => {
+              const tdElem = $(td)
               if (i >= 1 && i <= 4) {
-                // artist title time bpm
-                const text = $(tdElem).text().replace(/^\s+|\s+$/g, '')
-                props.push(text !== '' && text !== '？' ? text : null)
+              // artist title time bpm
+                const text = tdElem.text().replace(/^\s+|\s+$/g, '')
+                props.push(text === '' || text === '？' ? null : text)
               } else if (i === 0 || (i >= 6 && i <= 10)) {
-                // update dl lylic acappella external
-                const link = $(tdElem).find('a')
-                props.push(link.attr('href')) // url
-                props.push(link.text())       // type
+              // update dl lylic acappella external
+                const anchorElem = tdElem.find('a')
+                props.push(anchorElem.attr('href')) // url
+                props.push(anchorElem.text())       // type
                 if(i === 7) {
-                  props.push($(tdElem).html().split('<br>')[1]) // DL count
+                  props.push(tdElem.html().split('<br>')[1]) // DL count
                 }
               } else if (i === 11) {
-                // thread
-                const spanElem = $(tdElem).find('span')
+              // thread
+                const spanElem = tdElem.find('span')
                 props.push(spanElem.attr('title'))  // date
                 props.push(spanElem.text())         // thread itle
               }
