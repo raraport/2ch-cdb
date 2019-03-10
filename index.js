@@ -30,7 +30,7 @@ module.exports.get = form => {
             td.each((i, tdElem) => {
               if (i >= 1 && i <= 4) {
                 // artist title time bpm
-                const text = $(tdElem).text().replace(/ {2}|\n/g, '')
+                const text = $(tdElem).text().replace(/^\s+|\s+$/g, '')
                 props.push(text !== '' && text !== '？' ? text : null)
               } else if (i === 0 || (i >= 6 && i <= 10)) {
                 // update dl lylic acappella external
